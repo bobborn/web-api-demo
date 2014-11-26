@@ -25,5 +25,40 @@ namespace HelloWebApi.Controllers
                 Id = 12347, FirstName = "Joseph", LastName = "Law"
             }
         };
+
+
+        // GET api/employees
+        public IEnumerable<Employee> Get()
+        {
+            return list;
+        }
+
+        // GET api/employees/12345
+        public Employee Get(int id)
+        {
+            return list.First(e => e.Id == id);
+        }
+
+        // POST api/employees
+        public void Post(Employee employee)
+        {
+            int maxId = list.Max(e => e.Id);
+            employee.Id = maxId + 1;
+            list.Add(employee);
+        }
+
+        // PUT api/employees/12345
+        public void Put(int id, Employee employee)
+        {
+            int index = list.ToList().FindIndex(e => e.Id == id);
+            list[index] = employee;
+        }
+
+        // DELETE api/employees/12345
+        public void Delete(int id)
+        {
+            Employee employee = Get(id);
+            list.Remove(employee);
+        }
     }
 }
